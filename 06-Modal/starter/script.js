@@ -22,3 +22,7 @@ modals.forEach(element => {
 close.addEventListener('click', closeDialouge);
 
 overlay.addEventListener('click', closeDialouge);
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && !msg.classList.contains('hidden')) closeDialouge();
+});
