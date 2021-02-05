@@ -66,3 +66,32 @@ burttonScrollTo.addEventListener('click', e => {
   // Moderen Way of Scrolling
   section1.scrollIntoView({ behavior: 'smooth' });
 });
+
+/**
+ * Smooth Scrolling For Nav Bar Elements
+ *
+ *
+ * */
+// **** Not a Good Practice
+// document.querySelectorAll('.nav__link').forEach(ele => {
+//   ele.addEventListener('click', e => {
+//     e.preventDefault();
+//     const target = ele.getAttribute('href');
+//     document.querySelector(target).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+
+// ****Good Practice
+
+/**
+ * 1 . Add Event Listner to the Common Parent element.
+ * 2 . Determine the What Element Originated the Event
+ */
+
+document.querySelector('.nav__links').addEventListener('click', e => {
+  e.preventDefault();
+  if (e.target.classList.contains('nav__link')) {
+    const target = e.target.getAttribute('href');
+    document.querySelector(target).scrollIntoView({ behavior: 'smooth' });
+  }
+});
