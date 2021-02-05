@@ -125,3 +125,32 @@ container.addEventListener('click', e => {
     .querySelector(`.operations__content--${button.dataset.tab}`)
     .classList.add('operations__content--active');
 });
+
+/**
+ *
+ * Menu Fade-out Animation
+ *
+ */
+
+const fadeAnimation = function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const parent = link.closest('.nav');
+    const sibilings = parent.querySelectorAll('.nav__link');
+    const img = parent.querySelector('img');
+
+    sibilings.forEach(sibiling => {
+      if (link !== sibiling) {
+        sibiling.style.opacity = img.style.opacity = this;
+      }
+    });
+  }
+};
+
+document
+  .querySelector('.nav')
+  .addEventListener('mouseover', fadeAnimation.bind(0.5));
+
+document
+  .querySelector('.nav')
+  .addEventListener('mouseout', fadeAnimation.bind(1));
