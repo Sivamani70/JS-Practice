@@ -95,3 +95,33 @@ document.querySelector('.nav__links').addEventListener('click', e => {
     document.querySelector(target).scrollIntoView({ behavior: 'smooth' });
   }
 });
+
+/**
+ *
+ *  Tabbed componets
+ *
+ */
+
+const tabs = document.querySelectorAll('.operations__tab');
+const container = document.querySelector('.operations__tab-container');
+const contents = document.querySelectorAll('.operations__content ');
+
+container.addEventListener('click', e => {
+  const button = e.target.closest('.operations__tab');
+
+  if (!button) return;
+
+  // Hidding Active classes
+  tabs.forEach(tab => tab.classList.remove('operations__tab--active'));
+  contents.forEach(content =>
+    content.classList.remove('operations__content--active')
+  );
+
+  // Adding Active class to button
+  button.classList.add('operations__tab--active');
+
+  // Adding Active class to Content Division
+  document
+    .querySelector(`.operations__content--${button.dataset.tab}`)
+    .classList.add('operations__content--active');
+});
