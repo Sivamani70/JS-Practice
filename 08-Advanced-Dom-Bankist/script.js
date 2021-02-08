@@ -4,6 +4,7 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const nav = document.querySelector('.nav');
 
 const randomGenerator = (min, max) =>
   min + Math.floor(Math.random() * (max - min)) + 1;
@@ -146,11 +147,42 @@ const fadeAnimation = function (e) {
     });
   }
 };
+nav.addEventListener('mouseover', fadeAnimation.bind(0.5));
 
-document
-  .querySelector('.nav')
-  .addEventListener('mouseover', fadeAnimation.bind(0.5));
+nav.addEventListener('mouseout', fadeAnimation.bind(1));
 
-document
-  .querySelector('.nav')
-  .addEventListener('mouseout', fadeAnimation.bind(1));
+/**
+ *
+ * Sticky Scroll Bar Implementation
+ *
+ */
+
+// Old Way of creating the sticky nav with scroll But not that much effiecient.
+
+// window.addEventListener('scroll', () => {
+//   const initalCordinates = section1.getBoundingClientRect();
+//   if (window.scrollY > initalCordinates.top) {
+//     document.querySelector('.nav').classList.add('sticky');
+//   } else {
+//     document.querySelector('.nav').classList.remove('sticky');
+//   }
+// });
+
+const header = document.querySelector('.header');
+
+const stickyNav = entries => {
+  const [entry] = entries;
+  if (!entry.isIntersecting) {
+    nav.classList.add('sticky');
+  } else {
+    nav.classList.remove('sticky');
+  }
+};
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${nav.getBoundingClientRect().height}px`,
+});
+
+headerObserver.observe(header);
